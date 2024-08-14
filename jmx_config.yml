@@ -1,0 +1,126 @@
+startDelaySeconds: 0
+ssl: false
+lowercaseOutputName: false
+lowercaseOutputLabelNames: false
+
+rules:
+  - pattern: 'java.lang<type=ClassLoading><attribute=LoadedClassCount>'
+    name: jvm_classloading_loaded_classes
+    type: GAUGE
+    help: Number of loaded classes in the JVM
+
+  - pattern: 'java.lang<type=ClassLoading><attribute=TotalLoadedClassCount>'
+    name: jvm_classloading_total_loaded_classes
+    type: COUNTER
+    help: Total number of classes loaded since the JVM started
+
+  - pattern: 'java.lang<type=ClassLoading><attribute=UnloadedClassCount>'
+    name: jvm_classloading_unloaded_classes
+    type: COUNTER
+    help: Number of unloaded classes in the JVM
+
+  - pattern: 'java.lang<type=Compilation><attribute=Name>'
+    name: jvm_compilation_name
+    type: GAUGE
+    help: Name of the Just-in-Time (JIT) compiler
+
+  - pattern: 'java.lang<type=Compilation><attribute=TotalCompilationTime>'
+    name: jvm_compilation_time_seconds
+    type: COUNTER
+    help: Total time spent in JIT compilation
+
+  - pattern: 'java.lang<type=GarbageCollector,name=G1 Old Generation><attribute=CollectionCount>'
+    name: jvm_gc_g1_old_generation_collection_count
+    type: COUNTER
+    help: Number of G1 Old Generation garbage collection events
+
+  - pattern: 'java.lang<type=GarbageCollector,name=G1 Old Generation><attribute=CollectionTime>'
+    name: jvm_gc_g1_old_generation_collection_time_seconds
+    type: COUNTER
+    help: Total time spent in G1 Old Generation garbage collection
+
+  - pattern: 'java.lang<type=GarbageCollector,name=G1 Young Generation><attribute=CollectionCount>'
+    name: jvm_gc_g1_young_generation_collection_count
+    type: COUNTER
+    help: Number of G1 Young Generation garbage collection events
+
+  - pattern: 'java.lang<type=GarbageCollector,name=G1 Young Generation><attribute=CollectionTime>'
+    name: jvm_gc_g1_young_generation_collection_time_seconds
+    type: COUNTER
+    help: Total time spent in G1 Young Generation garbage collection
+
+  - pattern: 'java.lang<type=Memory><attribute=HeapMemoryUsage><>(committed|init|max|used)>'
+    name: jvm_memory_heap_$1
+    type: GAUGE
+    help: JVM heap memory $1 usage
+    labels:
+      region: heap
+
+  - pattern: 'java.lang<type=Memory><attribute=NonHeapMemoryUsage><>(committed|init|max|used)>'
+    name: jvm_memory_nonheap_$1
+    type: GAUGE
+    help: JVM non-heap memory $1 usage
+    labels:
+      region: nonheap
+
+  - pattern: 'java.lang<type=Memory><attribute=ObjectPendingFinalizationCount>'
+    name: jvm_memory_pending_finalization_objects
+    type: GAUGE
+    help: Number of objects pending finalization
+
+  - pattern: 'java.lang<type=MemoryPool,name=(.*)><attribute=Usage><>(committed|init|max|used)>'
+    name: jvm_memory_pool_$2
+    type: GAUGE
+    help: JVM memory pool $1 $2 usage
+    labels:
+      pool: $1
+
+  - pattern: 'java.lang<type=OperatingSystem><attribute=MaxFileDescriptorCount>'
+    name: jvm_os_max_file_descriptor_count
+    type: GAUGE
+    help: Maximum number of file descriptors
+
+  - pattern: 'java.lang<type=OperatingSystem><attribute=OpenFileDescriptorCount>'
+    name: jvm_os_open_file_descriptor_count
+    type: GAUGE
+    help: Number of open file descriptors
+
+  - pattern: 'java.lang<type=OperatingSystem><attribute=ProcessCpuLoad>'
+    name: jvm_os_process_cpu_load
+    type: GAUGE
+    help: CPU load of the JVM process
+
+  - pattern: 'java.lang<type=Runtime><attribute=Uptime>'
+    name: jvm_runtime_uptime_seconds
+    type: GAUGE
+    help: JVM uptime in seconds
+
+  - pattern: 'java.lang<type=Runtime><attribute=VmName>'
+    name: jvm_runtime_vm_name
+    type: GAUGE
+    help: Name of the Java Virtual Machine
+
+  - pattern: 'java.lang<type=Runtime><attribute=VmVersion>'
+    name: jvm_runtime_vm_version
+    type: GAUGE
+    help: Version of the Java Virtual Machine
+
+  - pattern: 'java.lang<type=Threading><attribute=DaemonThreadCount>'
+    name: jvm_threading_daemon_thread_count
+    type: GAUGE
+    help: Number of daemon threads in the JVM
+
+  - pattern: 'java.lang<type=Threading><attribute=PeakThreadCount>'
+    name: jvm_threading_peak_thread_count
+    type: GAUGE
+    help: Peak live thread count since the JVM started or peak was reset
+
+  - pattern: 'java.lang<type=Threading><attribute=ThreadCount>'
+    name: jvm_threading_thread_count
+    type: GAUGE
+    help: Current number of live threads including both daemon and non-daemon threads
+
+  - pattern: 'java.lang<type=Threading><attribute=TotalStartedThreadCount>'
+    name: jvm_threading_total_started_thread_count
+    type: COUNTER
+    help: Total number of threads created and started since the JVM started
